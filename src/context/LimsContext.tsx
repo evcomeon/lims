@@ -577,7 +577,7 @@ export const LimsProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const operator = currentRole === 'ALL' ? '吴审核' : getRoleName(currentRole);
 
     setOrders(prev => prev.map(order => {
-      if (order.report?.id !== reportId) return order;
+      if (order.id !== reportId && order.report?.id !== reportId) return order;
 
       const updatedReport = {
         ...order.report,
@@ -614,7 +614,7 @@ export const LimsProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const operator = currentRole === 'ALL' ? '马总工 (授权签字人)' : getRoleName(currentRole);
 
     setOrders(prev => prev.map(order => {
-      if (order.report?.id !== reportId) return order;
+      if (order.id !== reportId && order.report?.id !== reportId) return order;
 
       const updatedReport = {
         ...order.report,
@@ -665,7 +665,7 @@ export const LimsProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const operator = currentRole === 'ALL' ? '刘打印' : getRoleName(currentRole);
 
     setOrders(prev => prev.map(order => {
-      if (order.report?.id !== reportId) return order;
+      if (order.id !== reportId && order.report?.id !== reportId) return order;
 
       const newPrintCount = (order.report.printCount || 0) + 1;
       const updatedReport = {
@@ -712,7 +712,7 @@ export const LimsProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const operator = currentRole === 'ALL' ? '发证前台' : getRoleName(currentRole);
 
     setOrders(prev => prev.map(order => {
-      if (order.report?.id !== reportId) return order;
+      if (order.id !== reportId && order.report?.id !== reportId) return order;
 
       const updatedReport = {
         ...order.report,

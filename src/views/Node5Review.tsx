@@ -18,7 +18,7 @@ import { TestTask } from '../types';
 export const Node5Review: React.FC = () => {
   const { 
     orders, 
-    confirmReview, 
+    reviewPass,  // LimsContext 中方法名为 reviewPass（原代码误用 confirmReview）
     openRejectModal, 
     setActiveNode, 
     openWorkflowTimeline,
@@ -51,7 +51,7 @@ export const Node5Review: React.FC = () => {
 
   const handlePass = () => {
     if (!reviewingTask) return;
-    confirmReview(reviewingTask.id, reviewComment);
+    reviewPass(reviewingTask.id, reviewComment);
     setReviewingTask(null);
   };
 

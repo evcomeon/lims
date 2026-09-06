@@ -17,7 +17,7 @@ import { CommissionOrder } from '../types';
 export const Node7ReportApproval: React.FC = () => {
   const { 
     orders, 
-    approveReport, 
+    approvePass,  // LimsContext 中方法名为 approvePass（原代码误用 approveReport）
     openRejectModal, 
     setActiveNode, 
     openWorkflowTimeline,
@@ -46,7 +46,7 @@ export const Node7ReportApproval: React.FC = () => {
 
   const handlePass = () => {
     if (!selectedOrder) return;
-    approveReport(selectedOrder.id, approvalComment);
+    approvePass(selectedOrder.id, approvalComment);
     setSelectedOrder(null);
   };
 

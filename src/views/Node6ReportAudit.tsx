@@ -18,7 +18,7 @@ import { CommissionOrder } from '../types';
 export const Node6ReportAudit: React.FC = () => {
   const { 
     orders, 
-    auditReport, 
+    auditPass,  // LimsContext 中方法名为 auditPass（原代码误用 auditReport）
     openRejectModal, 
     setActiveNode, 
     openWorkflowTimeline,
@@ -46,7 +46,7 @@ export const Node6ReportAudit: React.FC = () => {
 
   const handlePass = () => {
     if (!selectedOrder) return;
-    auditReport(selectedOrder.id, auditComment);
+    auditPass(selectedOrder.id, auditComment);
     setSelectedOrder(null);
   };
 
