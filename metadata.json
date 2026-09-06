@@ -1,0 +1,6 @@
+{
+  "name": "LIMS 检验检测工作流系统",
+  "description": "基于9节点检验检测核心流程的LIMS管理系统原型，涵盖委托收样、检测收费、任务分配、试验检测、复核确认、报告审核、报告批准、报告打印与报告领取，支持全生命周期追溯与多角色评审。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
