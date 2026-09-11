@@ -440,3 +440,65 @@ img { display:block; max-width:100%; }
 .flowline .fa { color:#c3cbd8; font-size:12px; }
 
 .footer-note { text-align:center; color:#9aa3b2; font-size:11px; padding:16px 0 10px; }
+
+/* ===================== 打印预览（A4 报告） ===================== */
+.print-toolbar { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+.print-a4 {
+  width:210mm; min-height:297mm; margin:0 auto; background:#fff;
+  box-shadow:0 2px 18px rgba(0,0,0,.18); box-sizing:border-box;
+  padding:16mm 15mm 12mm; color:#1a1a1a; position:relative;
+  font-family:"SimSun","Songti SC","STSong",serif; font-size:12px; line-height:1.6;
+  display:flex; flex-direction:column;
+}
+.print-a4 .mono { font-family:Consolas,monospace; }
+
+/* 报告头 */
+.a4-head { text-align:center; position:relative; border-bottom:2px solid #1a1a1a; padding-bottom:10px; }
+.a4-head > svg { position:absolute; left:2mm; top:0; }
+.a4-title { font-size:26px; font-weight:700; letter-spacing:6px; }
+.a4-title-en { font-size:12px; letter-spacing:4px; color:#333; margin-top:2px; }
+.a4-no { margin-top:8px; font-size:12.5px; text-align:right; padding-right:2mm; }
+
+/* 表格（基本信息 / 结果汇总） */
+.a4-tbl { width:100%; border-collapse:collapse; margin-top:10px; }
+.a4-tbl th, .a4-tbl td { border:1px solid #333; padding:5px 7px; font-size:11.5px; text-align:left; vertical-align:middle; word-break:break-all; }
+.a4-tbl th { background:#f2f2f2; font-weight:700; text-align:center; }
+.a4-info td.k { background:#f7f7f7; width:60px; white-space:nowrap; text-align:center; }
+.a4-sec { margin-top:14px; font-size:13.5px; font-weight:700; letter-spacing:1px; border-left:3px solid #1a1a1a; padding-left:8px; }
+.a4-result td:nth-child(4) { font-size:10.5px; }
+
+/* 结论 */
+.a4-conclusion { margin:10px 0 0; font-size:12.5px; text-indent:2em; text-align:justify; line-height:1.9; }
+
+/* 三级签字 + 印章 */
+.a4-signs { display:flex; justify-content:space-between; gap:10mm; margin-top:26px; }
+.a4-sign { flex:1; text-align:center; font-size:12.5px; }
+.a4-sign .role { color:#333; }
+.a4-sign .name { font-family:"KaiTi","STKaiti",serif; font-size:16px; font-weight:700; border-bottom:1px solid #555; padding:0 14px 2px; }
+.a4-sign .time { display:block; font-size:10.5px; color:#555; margin-top:4px; min-height:14px; }
+.a4-stamp { position:absolute; opacity:.88; transform:rotate(-8deg); }
+.a4-stamp-cma { right:22mm; bottom:56mm; }
+.a4-stamp-org { right:6mm; bottom:58mm; }
+
+/* 声明 + 页脚 */
+.a4-notes { margin-top:auto; padding-top:14px; font-size:10.5px; color:#333; line-height:1.8; border-top:1px solid #333; }
+.a4-notes > div:first-child { font-weight:700; }
+.a4-footer { display:flex; justify-content:space-between; font-size:10.5px; color:#555; padding-top:8px; margin-top:6px; border-top:2px solid #1a1a1a; }
+
+/* ===================== 打印输出：仅打印 A4 区域 ===================== */
+@media print {
+  @page { size:A4 portrait; margin:0; }
+  html, body { background:#fff !important; height:auto !important; }
+  body * { visibility:hidden !important; }
+  .print-a4, .print-a4 * { visibility:visible !important; }
+  .print-a4 {
+    position:absolute; left:0; top:0; margin:0; box-shadow:none;
+    width:210mm; min-height:296mm; padding:14mm 13mm 10mm;
+  }
+  .no-print { display:none !important; }
+  .modal-mask { position:static !important; display:block !important; padding:0 !important; background:none !important; overflow:visible !important; }
+  .modal { width:auto !important; max-width:none !important; max-height:none !important; box-shadow:none !important; border-radius:0 !important; }
+  .modal-h { display:none !important; }
+  .modal-b { overflow:visible !important; padding:0 !important; }
+  #toastBox, .side, .top-nav, .tabsbar, .content-wrap { display:none !important; }
+}

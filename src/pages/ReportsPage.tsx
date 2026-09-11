@@ -4,6 +4,7 @@
 import React from 'react';
 import { useLims } from '../context/LimsContext';
 import { Chip } from '../components/ui';
+import { ReportPrintPreview } from '../components/ReportPrintPreview';
 import { get, samplesOf, paramsOf, clientName, type Db, type Entrust, type Report } from '../data/db';
 
 const SUBTITLES: Record<string, string> = {
@@ -24,11 +25,28 @@ function paramsCount(db: Db, eid: string): number {
 }
 
 export const ReportsPage: React.FC<{ arg?: string | null; statusFilter?: string }> = ({ arg, statusFilter }) => {
-  const { db, openTab } = useLims();
+  const { db, openTab, openModal } = useLims();
   const flt = statusFilter || arg || '';
   const list: Report[] = flt ? db.reports.filter(r => r.status === flt) : db.reports;
 
   const subtitle = SUBTITLES[flt] || SUBTITLES[''];
+
+  /* 打印预览：弹窗展示 A4 排版报告，可导出 PDF */
+  const openPreview = (rp: Report) => {
+    openModal({
+      title: '打印预览 · ' + rp.no,
+      wide: true,
+      body: (
+        <>
+          <div className="print-toolbar no-print">
+            <span style={{ color: '#8a94a6', fontSize: 12 }}>A4 纵向（210mm × 297mm）· 点击「打印 / 导出 PDF」后在打印对话框选择打印机或"另存为 PDF"</span>
+            <button className="btn primary sm" onClick={() => window.print()}>🖨 打印 / 导出 PDF</button>
+          </div>
+          <ReportPrintPreview db={db} rp={rp} />
+        </>
+      ),
+    });
+  };
 
   /* 顶部状态统计 */
   const stats: Record<string, number> = {};
@@ -75,6 +93,7 @@ export const ReportsPage: React.FC<{ arg?: string | null; statusFilter?: string 
                   <td>{samplesOf(db, rp.entrustId).length}样品 / {paramsCount(db, rp.entrustId)}参数</td>
                   <td className="actions">
                     <button className="btn sm primary" onClick={() => openTab('report:' + rp.id, rp.no + ' 报告详情', 'reportDetail', rp.id)}>打开</button>
+                    <button className="btn sm" onClick={() => openPreview(rp)}>🖨 打印预览</button>
                   </td>
                 </tr>
               );
